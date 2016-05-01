@@ -1,0 +1,10 @@
+#!/home/onikah/Documents/Monicah_Kwamboka/Andela/bc-7-Todo-Console-Application/venv/bin/python
+# EASY-INSTALL-ENTRY-SCRIPT: 'to-do-application','console_scripts','main'
+__requires__ = 'to-do-application'
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.exit(
+        load_entry_point('to-do-application', 'console_scripts', 'main')()
+    )

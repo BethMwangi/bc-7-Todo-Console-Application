@@ -1,10 +1,8 @@
 import click
 
 @click.command()
-def hello():
+def cli():
 	click.echo(click.style('Hello World!', fg='green'))
-if __name__=='__main__':
-	hello()
 
 
 	
