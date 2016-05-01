@@ -14,7 +14,7 @@ In Details the user can:
 
 ### Tech
 
-Dillinger uses a number of open source projects to work properly:
+The following resources were used to make this app
 
 * [Docopt] - Pythonic package used to create command-line interfaces 
 * [Firebase] - Cloud services platform that is used to store and sync your app's data
