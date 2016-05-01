@@ -16,7 +16,28 @@ In Details the user can:
 
 The following resources were used to make this app
 
-* [Docopt] - Pythonic package used to create command-line interfaces 
+* [Click] - Pythonic package used to create command-line interfaces 
 * [Firebase] - Cloud services platform that is used to store and sync your app's data
 * [SQLAlchemy] - Python SQL toolkit 
 
+### Installation
+
+You need python and pip installed globally:
+
+```sh
+$ apt-get install python2.7
+$ python get-pip.py
+```
+
+```sh
+$ git clone https://github.com/Onikah/bc-7-Todo-Console-Application.git
+$ cd bc-7-Todo-Console-Application
+$ virtualenv venv
+$ . venv/bin/activate
+$ pip install --editable .
+```
+Run the app by typing:
+
+```sh
+$ todo
+```
