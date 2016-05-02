@@ -1,0 +1,3 @@
+*.pyc
+*.egg-info
+to_do_application.egg-info/

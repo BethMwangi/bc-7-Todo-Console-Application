@@ -1,4 +1,4 @@
 
         [console_scripts]
-        main=main:cli
+        todo=todo:cli
     

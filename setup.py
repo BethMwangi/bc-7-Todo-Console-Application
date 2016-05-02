@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='to-do application',
     version='0.1',
-    py_modules=['main'],
+    py_modules=['todo'],
     include_package_data=True,
     install_requires=[
         'click',
@@ -11,6 +11,6 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        main=main:cli
+        todo=todo:cli
     ''',
 )
