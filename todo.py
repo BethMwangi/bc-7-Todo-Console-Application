@@ -3,7 +3,7 @@ import click
 #DATABASE
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
- 
+from sqlalchemy.sql import select
 from config import Category, Items, Base
  
 engine = create_engine('sqlite:///database.db')
@@ -25,10 +25,29 @@ def create():
     category = Category(category=cat)
     session.add(category)
     session.commit()
+    click.echo(click.style('{} Successfully added to categories'.format(cat), fg='yellow', bold=True))
 
 @click.command()
 def add():
-    select_cat = click.prompt(click.style('Add item to category' ,  fg='cyan', bold=True))
+	'''
+		querying database to display categories
+		adding item to category
+	'''
+	s = select([Category])
+	result = s.execute()
+	if result:
+		for row in result:
+		    click.echo('[{}] {}'.format(str(row[0]),str(row[1])))
+
+		select_cat = click.prompt(click.style('Select the number of category to add  add items' ,  fg='cyan', bold=True))
+
+
+
+
+
+	else:
+		click.echo('You have not created any category')
+		create()
 
 @click.command()
 def view():
@@ -45,6 +64,9 @@ cli.add_command(create)
 cli.add_command(add)
 cli.add_command(view)
 cli.add_command(delete)
+
+
+ 
 
 
 
