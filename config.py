@@ -13,14 +13,18 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     category = Column(String(255), unique=True)
 
+    def __repr__ (self):
+    	return 'Category: {}'.format(self.category)
+
 class Items(Base):
     __tablename__ = 'items'
     # Here we define columns for the table todo.
-    id = Column(Integer, primary_key=True)
-    category_id = Column(Integer, primary_key=True)
-    items = Column(String(255), unique=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    category_id = Column(Integer)
+    items = Column(String(255))
 
-
+    def __repr__ (self):
+    	return 'Item: {}'.format(self.items)
 
 engine = create_engine('sqlite:///database.db')
 Base.metadata.create_all(engine)
