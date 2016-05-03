@@ -1,5 +1,6 @@
 import os
 import click
+import sys
 from prettytable import PrettyTable
 import colorama 
 from colorama import Fore, Back, Style
@@ -66,7 +67,6 @@ def start_todo():
 	'''
 		todo start  ====> Starts the app 
 	'''
-	click.echo(click.style('Welcome to taskie lets begin.What would you like to do? ',  fg = 'cyan', bold = True))
 
 	click.echo(click.style("\n[1] Create new list of items.", fg ='white', bold = True))
 	click.echo(click.style("[2] Add items to your category", fg ='white', bold = True))
@@ -87,22 +87,12 @@ def start_todo():
 	        click.echo("\nTry again\n")
 
 
-
- 
-
-
-
-
-
-
 ###LOOPING FUNCTIONS ###
 def todo_title():    
     # Display the title bar.
-    print (click.style("\t**********************************************", fg ='cyan', bold = True, blink=True))
-    print (click.style("\t***  TASKY: Simple to dO list application  ***", fg ='cyan', bold = True, blink=True))
-    print (click.style("\t**********************************************", fg ='cyan', bold = True, blink=True))
-
-    
+    print click.style("\t*** TASKIE: To do list application ***\n", fg ='cyan', bold = True, blink=True)
+    print  click.style("\t*************************************\n", fg ='cyan', bold = True, blink=True)
+   
    
 def create_todo():
 	'''
@@ -114,16 +104,12 @@ def create_todo():
 	todo_title()
 	cat = click.prompt(click.style('Create Category',  fg = 'green', bold = True))
 
-	try:
-		# session.rollback()
-		category = Category(category=cat)
-		session.add(category)
-		session.commit()
-		click.echo(click.style('{} Successfully added to categories'.format(cat), fg ='cyan', bold = True))
-		add_todo()
-	except exc.IntegrityError:
-		click.echo(click.style('That Category already exists!!!', fg ='red', bold = True, blink=True))
-		create_todo()
+
+	category = Category(category=cat)
+	session.add(category)
+	session.commit()
+	click.echo(click.style('{} Successfully added to categories'.format(cat), fg ='cyan', bold = True))
+	add_todo()
 
 def add_todo():
 	'''
@@ -182,34 +168,25 @@ def view_todo():
 
 			for i in q:
 				click.echo(click.style('>>>' + i.items  , fg='white', bold=True))
-		view_todo()
+				
+		start_todo()
 	else:
 		click.echo('Nothing to display')
 
+
+### SYSTEM FUNCTION ###
 def exit_todo():
 	sys.exit()
 
+def delay_print(s):
+    for c in s:
+        sys.stdout.write( '%s' % c )
+        sys.stdout.flush()
+        sleep(0.25)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## FIREBASE ##
 @click.command()
 def save():
 	'''
@@ -218,13 +195,6 @@ def save():
 	# up_items()
 	# up_category()
 
-@cli.command()
-def pager():
-    """Demonstrates using the pager."""
-    lines = []
-    for x in range_type(200):
-        lines.append('%s. Hello World!' % click.style(str(x), fg='green'))
-    click.echo_via_pager('\n'.join(lines))
 
 
 #COMMANDS
@@ -237,10 +207,7 @@ cli.add_command(pager)
 
 
 
-###MAIN PROGRAM FLOW###
-#Starting query
-# title()
-# start()
+
 
  
 
