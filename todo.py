@@ -12,6 +12,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import select
 from models import Category, Items, Base
+from sync import Firebase
 
 # from sync import up_category, up_items 
 engine = create_engine('sqlite:///database.db')
@@ -38,39 +39,66 @@ def title():
 
 @click.command()  
 def start():
+	'''
+		todo start  ====> Starts the application 
+	'''
 	todo_title()
 	start_todo()
 
 @click.command()
 @click.argument('name', metavar='<name>')
 def create(name):
+	'''
+		todo create <list name>  ====> Creates New List
+	'''
 	create_todo(name)
 
 @click.command()
 @click.argument('name', metavar='<name>')
 def open(name):
+	'''
+		todo open <list name> ====> Open List 
+	'''
 	open_todo(name)
 
 @click.command()
 @click.argument('name' , metavar='<name>')
 @click.argument( 'item' , metavar='<item>')
 def add(name , item):
+	'''
+		todo add <list-name> <item>  ====> Add Items to List 
+	'''
+	
 	add_todo(name ,item)
 
 
 @click.command()
 @click.argument('name' , metavar='<name>')
 def list(name):
+	'''
+		todo list <list-name>   ====> View List items 
+	'''
 	list_todo(name)
 
 @click.command()
 def list_todos():
+	'''
+		todo list_todo   ====> View All List
+	'''
 	list_todos_all()
 
 @click.command()
 def exit():
 	exit_todo()
 
+## FIREBASE ##
+@click.command()
+def save():
+	'''
+		todo save  ====> Sync item
+	'''
+	# up_items()
+	# up_category()
 
 
 
@@ -78,9 +106,7 @@ def exit():
 ###MAIN PROGRAM RUNNING###
  
 def start_todo():
-	'''
-		todo start  ====> Starts the application 
-	'''
+
 
 	# click.echo(click.style("\n[1] Create new list of todo.", fg ='white', bold = True))
 	# click.echo(click.style("[2] Add items to your category", fg ='white', bold = True))
@@ -111,9 +137,7 @@ def todo_title():
    
    
 def create_todo(name):
-	'''
-		todo create <list name>  ====> Creates New List
-	'''
+
 	
 	os.system('clear')
 
@@ -130,9 +154,7 @@ def create_todo(name):
 
    
 def open_todo(name):
-	'''
-		todo open <list name> ====> Open List 
-	'''
+
 	
 	os.system('clear')
 
@@ -149,16 +171,13 @@ def open_todo(name):
 
 	item = click.prompt(click.style('>>',  fg='green', bold=True))
 	if item == 'q':
-		exit()
+		exit(0)
 	elif item == 'done':
 		list_todo(name)	
 	else:			
 		add_todo(name, item)			
 
 def add_todo(name, item):
-	'''
-		todo add <list-name> <item>  ====> Add Items to List 
-	'''
 	
 	os.system('clear')
 
@@ -176,10 +195,7 @@ def add_todo(name, item):
 
 
 def list_todo(name):
-	'''
-		todo list <list-name>   ====> View List items 
-	'''
-	
+
 	os.system('clear')
 
 	todo_title()
@@ -194,14 +210,14 @@ def list_todo(name):
 				click.secho('>>>' + i.items  , fg='white', bold=True)
 
 			if click.confirm('Do you want to continue?'):
-				click.secho('Well done!' , fg='green', bold=True)
+				# click.secho('Well done!' , fg='green', bold=True)
+				F = Firebase()
+				F.up_category()
 
 
 
 def list_todos_all():
-	'''
-		todo list_todo   ====> View All List
-	'''
+
 	os.system('clear')
 
 	todo_title()
@@ -225,10 +241,6 @@ def list_todos_all():
 	else:
 		click.echo('Nothing to display')
 
-
-
-
-
 ### SYSTEM FUNCTION ###
 def exit_todo():
 	pass
@@ -238,19 +250,6 @@ def delay_print(s):
         sys.stdout.write( '%s' % c )
         sys.stdout.flush()
         sleep(1)
-
-
-
-## FIREBASE ##
-@click.command()
-def save():
-	'''
-		todo save  ====> Sync item
-	'''
-	# up_items()
-	# up_category()
-
-
 
 #COMMANDS
 cli.add_command(start)

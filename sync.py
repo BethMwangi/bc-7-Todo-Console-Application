@@ -4,7 +4,7 @@ from models import Category, Items, Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import select
-import ipdb
+from colorama import Fore, Back, Style
 
 firebase = firebase.FirebaseApplication('https://todo-cli.firebaseio.com/', None)
 # jsonData = firebase.post('/todo-cli'  )
@@ -23,44 +23,22 @@ class Firebase:
 		category = []
 		cat = session.query(Category).all()
 		for x in cat:
-			print x
 			qry = session.query(Items).filter(Items.category_id==x.id)
 			data[x.category]=[d.items for d in qry]
 
-		jsonData = firebase.post('/todo-cli',data)
-		print jsonData
+		name = raw_input('Please enter your username:' ,  fg='green', bold=True , underline=True)
+		print Fore.GREEN  + 'Syncing..... '
+		jsonData = firebase.put('/todo-cli', name, data)
+		if jsonData:
+			print Fore.CYAN + 'Done!'
 
-	# 		i = collections.OrderedDict()
-	# 		i['id'] = x[0]
-	# 		i['category'] = x[1]
-	# 		category.append(i)
-
-		# j = json.dumps(category)
-
-	# 	print j
- #        file = 'catObject.json'
- #        f = open(file,'w')
- #        print >> f, j
+	def get(self):
+			r = firebase.get('/todo-cli', name, data)	
+			print r	
 
 
-	# def up_items(self):
-	# 	items = []
-	# 	item = session.query(Items).all()
-	# 	for x in item:
-	# 		i = collections.OrderedDict()
-	# 		i['id'] = x[0]
-	# 		i['category_id'] = x[1]
-	# 		i['items'] = x[2]
-	# 		category.append(i)
 
-	# 	j = json.dumps(category)
- #        file = 'itemObject.json'
- #        f = open(file,'w')
- #        print >> f, j
-
-
-	#  
 
 if __name__ == '__main__':
 	F = Firebase()
-	F.up_category()
+	F.get()
