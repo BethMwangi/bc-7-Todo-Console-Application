@@ -1,7 +1,7 @@
 # Todo Console Application
 
 
-> This is simply python application that runs inside the terminal
+> This is a simply python application that runs inside the terminal
 > enabling the users to create and keep track of their 
 > to do list.
 
@@ -34,7 +34,6 @@ $ git clone https://github.com/Onikah/bc-7-Todo-Console-Application.git
 $ cd bc-7-Todo-Console-Application
 $ virtualenv venv
 $ . venv/bin/activate
-$ pip install -
 $ pip install --editable .
 ```
 
@@ -68,13 +67,13 @@ List all lists:
 $ todo list_todos 
 ```
 
-Add item to an existing list quickly:
+Add items to an existing list quickly:
 
 ```sh
 $ todo add '<existing-list-name>' '<itemname>' 
 ```
 
-Save list itemss to cloud:
+Save list items to cloud:
 
 ```sh
 $ todo save
@@ -85,14 +84,10 @@ Retrieve items from cloud storage:
 ```sh
 $ todo sync
 ```
-Exist listing shell:
+Quit/Exist listing shell:
 
 ```sh
 $ done 
 ```
 
-Quit
 
-```sh
-$ q
-```

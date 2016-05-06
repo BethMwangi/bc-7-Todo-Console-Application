@@ -175,9 +175,7 @@ def open_todo(name):
 				click.secho('>>>' + i.items, fg='white', bold=True )
 
 	item = click.prompt(click.style('>>',  fg='green', bold=True))
-	if item == 'q':
-		exit(0)
-	elif item == 'done':
+	if item == 'done':
 		list_todo(name)	
 	else:			
 		add_todo(name, item)			

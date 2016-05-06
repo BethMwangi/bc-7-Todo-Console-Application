@@ -30,14 +30,11 @@ class Firebase:
 		name = click.prompt(click.style('Please enter your username:',  fg='cyan', bold=True))
 		print Fore.GREEN  + 'Syncing..... '
 		jsonData = firebase.put( '/todo-cli', name, data)
-		try:
-			
-			if jsonData:
-				print Fore.CYAN + 'Done!'
-			else:
-				print 'Try again'
-		except:
-			click.secho('Try again later.Thank you', fg = 'yellow' , bold=True)
+		if jsonData:
+			print Fore.CYAN + 'Done!'
+			exit()
+		else:
+			print 'Try again'
 
 	def get_firebase(self):
 		name = click.prompt(click.style('Please enter username?', fg = 'cyan' , bold=True))
@@ -56,10 +53,8 @@ class Firebase:
 						data = Items(category_id=r[0], items=i)
 						session.add(data)
 						session.commit()
+						session.close()
+
+		click.secho('Done', fg = 'yellow' , bold=True)				
 
 
-
-
-if __name__ == '__main__':
-	F = Firebase()
-	F.get()
