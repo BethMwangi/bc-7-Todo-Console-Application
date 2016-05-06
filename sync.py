@@ -1,4 +1,5 @@
 from firebase import firebase
+import click
 import collections
 from models import Category, Items, Base
 from sqlalchemy import create_engine
@@ -18,7 +19,7 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 class Firebase:
-	def up_category(self):
+	def upload_firebase(self):
 		data={}
 		category = []
 		cat = session.query(Category).all()
@@ -26,15 +27,35 @@ class Firebase:
 			qry = session.query(Items).filter(Items.category_id==x.id)
 			data[x.category]=[d.items for d in qry]
 
-		name = raw_input('Please enter your username:' ,  fg='green', bold=True , underline=True)
+		name = click.prompt(click.style('Please enter your username:',  fg='cyan', bold=True))
 		print Fore.GREEN  + 'Syncing..... '
-		jsonData = firebase.put('/todo-cli', name, data)
-		if jsonData:
-			print Fore.CYAN + 'Done!'
+		jsonData = firebase.put( '/todo-cli', name, data)
+		try:
+			
+			if jsonData:
+				print Fore.CYAN + 'Done!'
+			else:
+				print 'Try again'
+		except:
+			click.secho('Try again later.Thank you', fg = 'yellow' , bold=True)
 
-	def get(self):
-			r = firebase.get('/todo-cli', name, data)	
-			print r	
+	def get_firebase(self):
+		name = click.prompt(click.style('Please enter username?', fg = 'cyan' , bold=True))
+		jsonData = firebase.get('/todo-cli' , name)
+		for k in jsonData:
+			#inserting category to database
+			category = Category(category=k)
+			session.add(category)
+			session.commit()
+
+			for i in jsonData[k]:
+				s = select([Category])
+				result = s.execute()
+				for r in result:
+					if r[1] == k:
+						data = Items(category_id=r[0], items=i)
+						session.add(data)
+						session.commit()
 
 
 

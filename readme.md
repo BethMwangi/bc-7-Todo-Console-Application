@@ -34,6 +34,7 @@ $ git clone https://github.com/Onikah/bc-7-Todo-Console-Application.git
 $ cd bc-7-Todo-Console-Application
 $ virtualenv venv
 $ . venv/bin/activate
+$ pip install -
 $ pip install --editable .
 ```
 Run the app by typing:

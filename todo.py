@@ -97,8 +97,7 @@ def save():
 	'''
 		todo save  ====> Sync item
 	'''
-	# up_items()
-	# up_category()
+	upload_items()
 
 
 
@@ -240,6 +239,12 @@ def list_todos_all():
 		start_todo()
 	else:
 		click.echo('Nothing to display')
+
+
+
+
+
+
 
 ### SYSTEM FUNCTION ###
 def exit_todo():
