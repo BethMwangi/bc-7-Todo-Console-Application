@@ -95,10 +95,16 @@ def exit():
 @click.command()
 def save():
 	'''
-		todo save  ====> Sync item
+		todo save  ====> Save items online
 	'''
 	upload_items()
 
+@click.command()
+def sync():
+	'''
+		todo sync  ====> Sync item
+	'''
+	get_items_firebase()
 
 
 
@@ -208,10 +214,10 @@ def list_todo(name):
 			for i in q:
 				click.secho('>>>' + i.items  , fg='white', bold=True)
 
-			if click.confirm('Do you want to continue?'):
+			if click.confirm('Do you want to sync?'):
 				# click.secho('Well done!' , fg='green', bold=True)
 				F = Firebase()
-				F.up_category()
+				F.upload_firebase()
 
 
 
@@ -240,9 +246,15 @@ def list_todos_all():
 	else:
 		click.echo('Nothing to display')
 
+#FIREBASE SYNC AND SAVE
 
+def upload_items():
+	f = Firebase()
+	f.upload_firebase()
 
-
+def get_items_firebase():
+	f = Firebase()
+	f.get_firebase()
 
 
 
@@ -264,6 +276,7 @@ cli.add_command(add)
 cli.add_command(list)
 cli.add_command(list_todos)
 cli.add_command(save)
+cli.add_command(sync)
 
 
 

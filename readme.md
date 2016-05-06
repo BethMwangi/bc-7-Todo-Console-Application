@@ -37,8 +37,62 @@ $ . venv/bin/activate
 $ pip install -
 $ pip install --editable .
 ```
-Run the app by typing:
+
+### Usage:Commands
+
+Get Help:
 
 ```sh
-$ todo
+$ todo --help
+```
+
+Create list:
+
+```sh
+$ todo create '<list name>'
+```
+
+Open list:
+
+```sh
+$ todo open '<list name>'
+```
+List specific list:
+
+```sh
+$ todo list '<list name>'
+```
+List all lists:
+
+```sh
+$ todo list_todos 
+```
+
+Add item to an existing list quickly:
+
+```sh
+$ todo add '<existing-list-name>' '<itemname>' 
+```
+
+Save list itemss to cloud:
+
+```sh
+$ todo save
+```
+
+Retrieve items from cloud storage:
+
+```sh
+$ todo sync
+```
+Exist listing shell:
+
+```sh
+$ done 
+```
+
+Quit
+
+```sh
+$ q
 ```
