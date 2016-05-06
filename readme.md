@@ -32,8 +32,8 @@ $ python get-pip.py
 ```sh
 $ git clone https://github.com/Onikah/bc-7-Todo-Console-Application.git
 $ cd bc-7-Todo-Console-Application
-$ virtualenv venv
 $ . venv/bin/activate
+$ pip install -r requirements.txt
 $ pip install --editable .
 ```
 
@@ -84,10 +84,14 @@ Retrieve items from cloud storage:
 ```sh
 $ todo sync
 ```
-Quit/Exist listing shell:
+Exit listing shell that list all items:
 
 ```sh
-$ done 
+$ q
 ```
 
+Close app
 
+```sh
+$ done
+```

@@ -83,7 +83,7 @@ def list(name):
 @click.command()
 def list_todos():
 	'''
-		todo list_todo   ====> View All List
+		todo list_todo   ====> View All Lists
 	'''
 	list_todos_all()
 
@@ -173,6 +173,8 @@ def open_todo(name):
 			click.secho(name.upper(), fg='cyan', bold=True, underline=True)
 			for i in q:
 				click.secho('>>>' + i.items, fg='white', bold=True )
+		# else:
+		# 	click.secho('oops list {} doesnt exist'.format(name), fg='white', bold=True )
 
 	item = click.prompt(click.style('>>',  fg='green', bold=True))
 	if item == 'done':
